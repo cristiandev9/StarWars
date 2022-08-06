@@ -6,7 +6,7 @@
   }
   
   main{
-    width:85%;
+    width:95%;
   }
 
   .main{
@@ -15,10 +15,10 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
+    
   }
-
-  body{
-    background: red;
+  .logo{
+    margin:1rem 0 -1.5rem 0;
   }
 </style>
 
