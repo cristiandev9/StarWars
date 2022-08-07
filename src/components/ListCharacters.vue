@@ -9,13 +9,14 @@
 }
 
 .item-card-character {
-  margin: 0 1rem 0 1rem;
+  margin: 0 1.57rem 0 1.57rem;
 }
 
 .loading {
   margin: 0 auto;
-  margin-top:10rem;
+  margin-top: 10rem;
 }
+
 .pagination {
   margin: 2rem 0 1rem 0;
 }
@@ -32,25 +33,84 @@
   box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
 }
 
-.text-field-custom{
-  margin: 0 5.5rem 0 5.5rem; 
-  width: 88.5%;
+.v-pagination__navigation {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.v-pagination__navigation > i {
+  color: #ffc107 !important;
+}
+
+.text-field-custom {
+  margin: 0 5.5rem 0 5.5rem;
+  width: 96%;
+}
+
+.v-card__subtitle,
+.v-card__text,
+.v-card__title {
+  padding: 12px 16px 4px 16px;
+}
+
+.v-btn__content {
+  font-size: 11px !important;
+}
+
+.v-pagination__item {
+  color: rgba(255, 255, 255, 0.9) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.theme--light.v-text-field > .v-input__control > .v-input__slot:before {
+  color: #ffc107 !important;
+}
+
+.v-pagination__item--active {
+  color: rgba(0, 0, 0, 0.85) !important;
+}
+
+.text-results{
+  color:#fff;
+  margin-bottom:1rem;
+  font-size:14px;
+}
+
+@media (max-width: 1024px) {
+  body {
+    overflow-x: hidden !important;
+  }
+  .cards-characters {
+    display: block;
+  }
+
+  .theme--light.v-pagination .v-pagination__item,
+  .v-pagination__navigation {
+    min-width: 1.5rem !important;
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    font-size: 0.75rem;
+  }
+
+  .v-pagination__navigation {
+    margin: 0.2rem;
+  }
 }
 </style>
 
 <template>
   <div class="main-list-characters">
-
     <v-text-field
-        class="text-field-custom"
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Pesquisar"
-        single-line
-        hide-details
-      ></v-text-field>
+      class="text-field-custom"
+      v-model="search"
+      append-icon="mdi-magnify"
+      label="Pesquisar"
+      color="amber"
+      single-line
+      hide-details
+      autofocus
+      dark
+    ></v-text-field>
 
-    
     <v-progress-circular
       class="loading"
       :size="50"
@@ -59,26 +119,37 @@
       v-show="loading"
     ></v-progress-circular>
 
-
     <div class="cards-characters">
       <div
         class="item-card-character"
-        v-for="(character, index) in characters"
-        :key="index"
+        v-for="character in characters"
+        :key="character.name"
       >
         <CardCharacter
           :name="character.name"
-          :avatar="avatar(index)"
+          :url="character.url"
+          :avatar="avatar(character.url)"
+          :gender="character.gender"
+          :birth_year="character.birth_year"
+          :eye_color="character.eye_color"
+          :hair_color="character.hair_color"
+          :mass="character.mass"
+          :skin_color="character.skin_color"
+          :home_world="character.homeworld"
+          :height="character.height"
+          :page="currentPage"
         ></CardCharacter>
       </div>
     </div>
 
-    <div class="pagination text-center" v-show="!loading">
+    <div class="pagination text-center" v-show="!loading" v-if="characters.length">
+      <div class="text-results" v-if=" characters.length > 1">Foram encontrados {{search  ? characters.length : totalCharacters}} resultados</div>
+      <div class="text-results" v-else>Foi encontrado 1 resultado</div>
       <v-pagination
         v-model="currentPage"
-        :length="totalPages"
+        :length="search  ? 1 : totalPages"
         circle
-        color="#F5D530"
+        color="amber darken-2"
       ></v-pagination>
     </div>
   </div>
@@ -87,6 +158,7 @@
 <script>
 import CardCharacter from "./CardCharacter.vue";
 import api from "@/services/api";
+import helppers from "@/helppers/helppers";
 
 export default {
   components: { CardCharacter },
@@ -111,11 +183,10 @@ export default {
           this.totalCharacters / this.charactersPerPage
         );
         let pers = response.data.results.filter((item) => {
-          console.log(this.search)
-          if (this.search){
-            if (item.name.toLowerCase().includes(this.search.toLowerCase())){
+          if (this.search) {
+            if (item.name.toLowerCase().includes(this.search.toLowerCase())) {
               return true;
-            } 
+            }
           } else {
             return true;
           }
@@ -125,27 +196,18 @@ export default {
         this.loading = false;
       });
     },
-    avatar(index) {
-
-      let itemAvatar;
-      if (index + ((this.currentPage - 1) * this.charactersPerPage+1) >= 17){
-        itemAvatar = (index + ((this.currentPage - 1) * this.charactersPerPage+1)) + 1;
-      } else if (index + ((this.currentPage - 1) * this.charactersPerPage+1) >= 11){
-        itemAvatar = (index + ((this.currentPage - 1) * this.charactersPerPage+1));
-      } else {
-        itemAvatar = index + 1;
-      }
-     
-      return `https://starwars-visualguide.com/assets/img/characters/${itemAvatar}.jpg`;
+  
+    avatar(url) {
+      return helppers.GetAvatar(url);
     },
   },
 
-  mounted() {
-    this.ReturnCharacters();
-  },
   watch: {
     currentPage() {
       this.page = `?page=${this.currentPage}`;
+      history.pushState({}, null, `?page=${this.currentPage}`);
+      helppers.ScrollToTop();
+      
     },
     page() {
       this.ReturnCharacters();
@@ -153,6 +215,11 @@ export default {
     search() {
       this.ReturnCharacters();
     },
+  },
+  mounted() {
+    this.currentPage = parseInt(window.location.search.split("=")[1]);
+    this.page = `?page=${this.currentPage}`;
+    this.ReturnCharacters();
   },
 };
 </script>

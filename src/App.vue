@@ -3,6 +3,7 @@
     padding:0;
     margin:0;
     font-family: sans-serif;
+    background-image: url('https://images8.alphacoders.com/102/thumbbig-1020793.webp') !important;
   }
   
   main{
@@ -16,10 +17,13 @@
     flex-direction: column;
     width: 100%;
     
+    
   }
   .logo{
     margin:1rem 0 -1.5rem 0;
   }
+
+   
 </style>
 
 <template>
