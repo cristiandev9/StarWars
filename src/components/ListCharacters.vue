@@ -218,6 +218,7 @@ export default {
   mounted() {
     this.currentPage = this.$route.query.page ? parseInt(this.$route.query.page) : 1;
     this.page = `?page=${this.currentPage}`;
+    history.pushState({}, null, `?page=${this.currentPage}`);
     this.ReturnCharacters();
   },
 };
