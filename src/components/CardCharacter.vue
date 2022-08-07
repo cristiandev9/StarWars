@@ -44,14 +44,14 @@
 
 <template>
   <v-card class="mx-auto card-custom" max-width="250">
-    <a :to="pageCharacter">
+    <router-link :to="pageCharacter">
       <v-img
         class="img"
         :src="avatar"
         height="300px"
         style="opacity: 0.85"
       ></v-img>
-    </a>
+    </router-link>
 
     <v-card-title class="amber--text text-name">{{ name }}</v-card-title>
 
