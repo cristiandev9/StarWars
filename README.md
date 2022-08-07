@@ -4,9 +4,9 @@
 
 Para Iniciar, clone o repositório!
 
-Agora, será necesário instalar as dependencias, para isso, utilize "npm install"
+Agora, será necessário instalar as dependências, para isso, utilize "npm install".
 
-Vamos rodar o projeto: para isso, utilize "npm run serve", e acesse localhost:8080 ou outra porta que será indicada no terminal
+Para rodar o projeto, utilize "npm run serve", e acesse localhost:8080 ou outra porta que será indicada no terminal
 
 Caso prefira iniciar com o script de start, é necessário buildar o projeto, basta digitar o seguinte comando "npm run build", depois "npm start" para iniciar o servidor e acesse localhost:3000
 
