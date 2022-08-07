@@ -30,7 +30,6 @@
   <v-app>
     <div class="main">
       <img class="logo" src="./assets/logo.png" width="125px" height="125px" alt="Star Wars">
-
       <v-main>
         <router-view/>
       </v-main>

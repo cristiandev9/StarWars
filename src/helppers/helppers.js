@@ -17,7 +17,6 @@ const helppers = {
             let itemAvatar = helppers.GetId(url);
             return `https://starwars-visualguide.com/assets/img/characters/${itemAvatar}.jpg`;
         }
-
         return "";
     }
 }
