@@ -12,5 +12,5 @@ app.use('/', express.static(
 ))
 
 app.listen(process.env.PORT || 3000, ()=>{
-  console.log('Tudo funcionando')
+  console.log('Acesse localhost:3000')
 })
