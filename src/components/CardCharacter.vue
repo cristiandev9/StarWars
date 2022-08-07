@@ -25,7 +25,7 @@
 
 .subtitle-card-name {
   color: rgba(255, 255, 255, 0.85) !important;
-  margin-top: 0rem;
+  margin-top: 0rem !important;
 }
 
 .img {

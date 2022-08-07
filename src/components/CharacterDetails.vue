@@ -34,7 +34,7 @@
 }
 
 .text-amber {
-  color: #e29b2f;
+  color: #e29b2f !important;
 }
 
 .box-content-informations {
