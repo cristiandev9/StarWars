@@ -271,7 +271,7 @@ export default {
       }
     });
 
-    this.currentPage = parseInt(window.location.search.split("&")[1].split("=")[1]);
+    this.currentPage = window.location.search ? parseInt(window.location.search.split("&")[1].split("=")[1]) : 1;
   },
 };
 </script>

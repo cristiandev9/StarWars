@@ -217,7 +217,8 @@ export default {
     },
   },
   mounted() {
-    this.currentPage = parseInt(window.location.search.split("=")[1]);
+    this.currentPage = window.location.search ? parseInt(window.location.search.split("=")[1]) : 1;
+
     this.page = `?page=${this.currentPage}`;
     this.ReturnCharacters();
   },
