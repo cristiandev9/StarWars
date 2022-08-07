@@ -13,8 +13,12 @@ const helppers = {
         return parseInt(url.split("/")[5]);
     },
     GetAvatar(url) {
-        let itemAvatar = helppers.GetId(url);
-        return `https://starwars-visualguide.com/assets/img/characters/${itemAvatar}.jpg`;
+        if (url) {
+            let itemAvatar = helppers.GetId(url);
+            return `https://starwars-visualguide.com/assets/img/characters/${itemAvatar}.jpg`;
+        }
+
+        return "";
     }
 }
 

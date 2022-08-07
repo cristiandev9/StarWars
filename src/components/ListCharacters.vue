@@ -107,7 +107,6 @@
       color="amber"
       single-line
       hide-details
-      autofocus
       dark
     ></v-text-field>
 
@@ -217,8 +216,7 @@ export default {
     },
   },
   mounted() {
-    this.currentPage = window.location.search ? parseInt(window.location.search.split("=")[1]) : 1;
-
+    this.currentPage = this.$route.query.page ? parseInt(this.$route.query.page) : 1;
     this.page = `?page=${this.currentPage}`;
     this.ReturnCharacters();
   },

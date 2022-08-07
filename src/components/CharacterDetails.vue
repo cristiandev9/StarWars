@@ -271,7 +271,7 @@ export default {
       }
     });
 
-    this.currentPage = window.location.search ? parseInt(window.location.search.split("&")[1].split("=")[1]) : 1;
+    this.currentPage = this.$route.query.page ? parseInt(this.$route.query.page) : 1;
   },
 };
 </script>
