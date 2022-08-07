@@ -44,7 +44,7 @@
 
 <template>
   <v-card class="mx-auto card-custom" max-width="250">
-    <a :href="pageCharacter">
+    <a :to="pageCharacter">
       <v-img
         class="img"
         :src="avatar"
